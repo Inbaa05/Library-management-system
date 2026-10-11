@@ -1,0 +1,195 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Head Librarian",
+      "email": "librarian@library.edu",
+      "password": "44d45d881a61df2cd7b1e5401370736f54790ada9c6f1b1b10567f0364c295af",
+      "role": "librarian",
+      "created_at": "2026-10-11T09:57:58.547Z"
+    },
+    {
+      "id": 2,
+      "name": "Alice Student",
+      "email": "student@library.edu",
+      "password": "5d55b8fa27226a749083c631790fccf806d7508ce55a0cea59458d61cb2c025d",
+      "role": "student",
+      "created_at": "2026-10-11T09:57:58.548Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": 8,
+      "user_id": 2,
+      "title": "gnghmghn",
+      "comment_text": "hfukhyhdyjjki",
+      "category": "library_facility",
+      "book_title": null,
+      "rating": null,
+      "facility": null,
+      "created_at": "2026-10-11T10:17:10.407Z",
+      "content_hash": "188e65e7512771ea4c77177aabd957ab8be015f00281be1d282409b3f0221525",
+      "status": "irrelevant",
+      "is_flagged": true,
+      "moderation_reason": "Feedback is too short (minimum 3 words required)."
+    },
+    {
+      "id": 7,
+      "user_id": 2,
+      "title": "Library promotion deal",
+      "comment_text": "Earn free money and play casino gambling slots right now!",
+      "category": "general_feedback",
+      "book_title": null,
+      "rating": null,
+      "facility": null,
+      "created_at": "2026-10-11T09:59:09.675Z",
+      "content_hash": "f57855a391cbe20bf1be44c3a91e094c17f54a6acbdd6b27f3f73e45ca180b6e",
+      "status": "inappropriate",
+      "is_flagged": true,
+      "moderation_reason": "Content flagged for policy violations / inappropriate terms."
+    },
+    {
+      "id": 6,
+      "user_id": 2,
+      "title": "Baking a delicious chocolate cake recipe",
+      "comment_text": "Add sugar flour cocoa powder and milk to bake great cake",
+      "category": "general_feedback",
+      "book_title": null,
+      "rating": null,
+      "facility": null,
+      "created_at": "2026-10-11T09:59:09.664Z",
+      "content_hash": "433d487caa6b67f4d0ea5e0d1983dcadec0532f621618bbbe8bb1c6e7a74a3b2",
+      "status": "irrelevant",
+      "is_flagged": true,
+      "moderation_reason": "Comment does not appear related to library services."
+    },
+    {
+      "id": 5,
+      "user_id": 2,
+      "title": "More study tables on 2nd floor",
+      "comment_text": "The library requires additional study tables and quiet seating areas for study.",
+      "category": "library_facility",
+      "book_title": null,
+      "rating": null,
+      "facility": null,
+      "created_at": "2026-10-11T09:59:09.651Z",
+      "content_hash": "5324903b389d5887d5d17e61f5cb1d8c4c283d7279dc0229a1b49ee9d65e9350",
+      "status": "duplicate",
+      "duplicate_of_id": 4,
+      "similarity_score": 1,
+      "moderation_reason": "Exact duplicate of comment #4"
+    },
+    {
+      "id": 4,
+      "user_id": 2,
+      "title": "More study tables on 2nd floor",
+      "comment_text": "The library requires additional study tables and quiet seating areas for study.",
+      "category": "library_facility",
+      "book_title": null,
+      "rating": null,
+      "facility": null,
+      "created_at": "2026-10-11T09:59:09.648Z",
+      "content_hash": "5324903b389d5887d5d17e61f5cb1d8c4c283d7279dc0229a1b49ee9d65e9350",
+      "status": "approved",
+      "is_flagged": false
+    },
+    {
+      "id": 1,
+      "user_id": 2,
+      "title": "Need more modern Python references",
+      "comment_text": "The computer science section requires recent textbooks covering Python 3 and web frameworks.",
+      "category": "book_suggestion",
+      "category_label": "Book Suggestion",
+      "status": "approved",
+      "content_hash": "hash1",
+      "duplicate_of_id": null,
+      "similarity_score": null,
+      "moderation_reason": null,
+      "is_flagged": false,
+      "created_at": "2026-10-08T09:57:58.548Z"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "title": "Wi-Fi connectivity dropouts in 3rd floor reading hall",
+      "comment_text": "The Wi-Fi frequently disconnects around the study cubicles in the 3rd floor quiet zone.",
+      "category": "wifi_digital",
+      "category_label": "Wi-Fi & Digital Facilities",
+      "status": "pending_review",
+      "content_hash": "hash2",
+      "duplicate_of_id": null,
+      "similarity_score": null,
+      "moderation_reason": null,
+      "is_flagged": false,
+      "created_at": "2026-10-09T09:57:58.548Z"
+    },
+    {
+      "id": 3,
+      "user_id": 2,
+      "title": "Need more quiet study cubicles",
+      "comment_text": "During exam weeks there are not enough silent seating spots available for students.",
+      "category": "library_facility",
+      "category_label": "Library Facility",
+      "status": "approved",
+      "content_hash": "hash3",
+      "duplicate_of_id": null,
+      "similarity_score": null,
+      "moderation_reason": null,
+      "is_flagged": false,
+      "created_at": "2026-10-10T09:57:58.548Z"
+    }
+  ],
+  "books": [
+    {
+      "id": 1,
+      "title": "Clean Architecture",
+      "author": "Robert C. Martin",
+      "description": "A Craftsman Guide to Software Structure and Design.",
+      "genre": "Software Engineering",
+      "created_at": "2026-10-11T09:57:58.548Z"
+    },
+    {
+      "id": 2,
+      "title": "Designing Data-Intensive Applications",
+      "author": "Martin Kleppmann",
+      "description": "The Big Ideas Behind Reliable, Scalable, and Maintainable Systems.",
+      "genre": "Distributed Systems",
+      "created_at": "2026-10-11T09:57:58.548Z"
+    },
+    {
+      "id": 3,
+      "title": "Refactoring",
+      "author": "Martin Fowler",
+      "description": "Improving the Design of Existing Code.",
+      "genre": "Software Engineering",
+      "created_at": "2026-10-11T09:57:58.548Z"
+    },
+    {
+      "id": 4,
+      "title": "Introduction to Algorithms",
+      "author": "Cormen, Leiserson, Rivest, Stein",
+      "description": "Comprehensive guide to algorithms and data structures.",
+      "genre": "Computer Science",
+      "created_at": "2026-10-11T09:57:58.548Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "user_id": 2,
+      "book_id": 1,
+      "rating": 5,
+      "review_text": "Essential reading for every software engineering student.",
+      "created_at": "2026-10-11T09:57:58.548Z"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "book_id": 2,
+      "rating": 5,
+      "review_text": "Incredible depth and clarity on distributed architectures.",
+      "created_at": "2026-10-11T09:57:58.548Z"
+    }
+  ],
+  "moderationLogs": []
+}

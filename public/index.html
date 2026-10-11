@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management Comment Optimization System</title>
+  <style>
+    :root {
+      --color-bg: #faf9f7;
+      --color-surface: #ffffff;
+      --color-border: #e2e8f0;
+      --color-navy: #1a2332;
+      --color-emerald: #10b981;
+      --color-emerald-hover: #059669;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
+    body { background-color: var(--color-bg); color: var(--color-navy); line-height: 1.5; }
+    header { background: #fff; border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 50; }
+    .nav-container { max-width: 1200px; margin: 0 auto; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+    .logo { font-size: 1.25rem; font-weight: 800; color: var(--color-navy); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .logo span { color: var(--color-emerald); }
+    .nav-links { display: flex; gap: 16px; align-items: center; }
+    .nav-btn { text-decoration: none; color: #4b5563; font-weight: 600; font-size: 0.9rem; padding: 6px 12px; border-radius: 6px; cursor: pointer; border: none; background: transparent; }
+    .nav-btn:hover, .nav-btn.active { color: var(--color-emerald); background: #ecfdf5; }
+    .btn-primary { background: var(--color-emerald); color: #fff; padding: 8px 16px; border-radius: 6px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-primary:hover { background: var(--color-emerald-hover); }
+    .btn-secondary { background: #fff; color: var(--color-navy); border: 1px solid var(--color-border); padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    .main-content { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+    .card { background: #fff; border: 1px solid var(--color-border); border-radius: 10px; padding: 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.03); margin-bottom: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .badge { display: inline-block; padding: 3px 8px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    .badge-approved { background: #ecfdf5; color: #047857; }
+    .badge-pending_review { background: #fffbeb; color: #b45309; }
+    .badge-duplicate { background: #eff6ff; color: #1d4ed8; }
+    .badge-near_duplicate { background: #f5f3ff; color: #6d28d9; }
+    .badge-irrelevant { background: #f3f4f6; color: #4b5563; }
+    .badge-inappropriate { background: #fef2f2; color: #b91c1c; }
+    input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--color-border); border-radius: 6px; font-size: 0.95rem; margin-top: 4px; }
+    .toast { position: fixed; bottom: 20px; right: 20px; padding: 12px 20px; border-radius: 6px; background: var(--color-emerald); color: #fff; font-weight: 600; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="#" onclick="showView('home')" class="logo">📚 Library<span>Opt</span></a>
+      <div class="nav-links">
+        <button class="nav-btn" onclick="showView('feedback')">Explore Feedback</button>
+        <button class="nav-btn" onclick="showView('submit')">+ Submit Feedback</button>
+        <button class="nav-btn" onclick="showView('books')">Catalog & Reviews</button>
+        <button class="nav-btn" onclick="showView('dashboard')">Librarian Dashboard</button>
+        <button class="nav-btn" onclick="showView('moderation')">Moderation Queue</button>
+        <button class="nav-btn" onclick="showView('pipeline')">Pipeline Engine</button>
+        <span id="userStatus" style="font-size: 0.85rem; font-weight: 600; padding: 4px 8px; background: #e2e8f0; border-radius: 4px;">Logged in: Librarian</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <div id="toastContainer"></div>
+
+    <!-- VIEW: HOME -->
+    <div id="view-home">
+      <div style="text-align: center; padding: 40px 0 30px;">
+        <span style="background: #e6f4ea; color: var(--color-emerald); padding: 4px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 700;">Clean Coding & DevOps (IBM) Project</span>
+        <h1 style="font-size: 2.8rem; margin: 16px 0 12px; color: var(--color-navy); font-weight: 800;">Turn Library Feedback into Better Decisions</h1>
+        <p style="color: #4b5563; font-size: 1.15rem; max-width: 700px; margin: 0 auto 24px;">An academic digital platform validating comments, detecting near & exact duplicates, filtering irrelevant content, and surfacing actionable insights.</p>
+        <button class="btn-primary" onclick="showView('submit')" style="font-size: 1rem; padding: 10px 24px;">Get Started — Submit Feedback</button>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3 style="margin-bottom: 8px;">Deterministic Duplicate Check</h3>
+          <p style="color: #6b7280; font-size: 0.95rem;">Evaluates normalized strings with SHA-256 for instant O(1) duplicate prevention.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom: 8px;">Near-Duplicate Jaccard Similarity</h3>
+          <p style="color: #6b7280; font-size: 0.95rem;">Token overlap scanner detects recurring requests and flags them for staff attention.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom: 8px;">Domain Relevance & Policy Filter</h3>
+          <p style="color: #6b7280; font-size: 0.95rem;">Whitelist keyword matches verify context, flagging spam and inappropriate submissions.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: SUBMIT -->
+    <div id="view-submit" style="display: none; max-width: 650px; margin: 0 auto;">
+      <h2 style="margin-bottom: 8px;">Submit Library Feedback</h2>
+      <p style="color: #6b7280; margin-bottom: 20px;">Submissions are automatically processed and evaluated through our 7-stage engine.</p>
+      
+      <div id="submitResult" class="card" style="display: none; border-left: 4px solid var(--color-emerald);"></div>
+
+      <form class="card" onsubmit="handleCommentSubmit(event)">
+        <div style="margin-bottom: 14px;">
+          <label style="font-weight: 600; font-size: 0.85rem;">Feedback Title *</label>
+          <input type="text" id="fbTitle" required placeholder="e.g. More Python books in CS Section">
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="font-weight: 600; font-size: 0.85rem;">Category</label>
+          <select id="fbCategory">
+            <option value="general_feedback">General Feedback (Auto-Detect)</option>
+            <option value="book_suggestion">Book Suggestion</option>
+            <option value="library_facility">Library Facility</option>
+            <option value="wifi_digital">Wi-Fi & Digital</option>
+            <option value="book_review">Book Review</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="font-weight: 600; font-size: 0.85rem;">Detailed Feedback *</label>
+          <textarea id="fbText" rows="4" required placeholder="Describe the suggestion or concern..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Run Pipeline & Submit</button>
+      </form>
+    </div>
+
+    <!-- VIEW: FEEDBACK EXPLORER -->
+    <div id="view-feedback" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Explore Feedback Submissions</h2>
+        <button class="btn-secondary" onclick="loadFeedback()">↻ Refresh</button>
+      </div>
+      <div id="feedbackList">Loading feedback...</div>
+    </div>
+
+    <!-- VIEW: DASHBOARD -->
+    <div id="view-dashboard" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Librarian Executive Dashboard</h2>
+        <button class="btn-primary" onclick="exportCsv()">Export CSV Report</button>
+      </div>
+
+      <div class="grid" id="dashboardKpis"></div>
+
+      <div class="card" style="margin-top: 20px;">
+        <h3 style="margin-bottom: 12px;">Top Actionable Feedback Categories</h3>
+        <ul id="insightsList" style="padding-left: 20px; color: #4b5563;"></ul>
+      </div>
+    </div>
+
+    <!-- VIEW: MODERATION -->
+    <div id="view-moderation" style="display: none;">
+      <h2 style="margin-bottom: 16px;">Comment Moderation Queue</h2>
+      <div id="moderationList">Loading queue...</div>
+    </div>
+
+    <!-- VIEW: BOOKS -->
+    <div id="view-books" style="display: none;">
+      <h2 style="margin-bottom: 16px;">Library Book Catalog</h2>
+      <div class="grid" id="booksGrid"></div>
+    </div>
+
+    <!-- VIEW: PIPELINE -->
+    <div id="view-pipeline" style="display: none;">
+      <h2 style="margin-bottom: 16px;">Comment Optimization Pipeline Engine</h2>
+      <div class="card">
+        <h4 style="color: var(--color-emerald); margin-bottom: 6px;">Phase 1: Intake & Canonical Normalization</h4>
+        <p style="color: #4b5563; font-size: 0.95rem;">Whitespace stripped, text lowercased, punctuation removed.</p>
+      </div>
+      <div class="card">
+        <h4 style="color: #2563eb; margin-bottom: 6px;">Phase 2: Deterministic SHA-256 Hash Matching</h4>
+        <p style="color: #4b5563; font-size: 0.95rem;">Exact duplicates identified instantaneously via indexed database hash table.</p>
+      </div>
+      <div class="card">
+        <h4 style="color: #7c3aed; margin-bottom: 6px;">Phase 3: Jaccard Token Set Similarity</h4>
+        <p style="color: #4b5563; font-size: 0.95rem;">Computes word intersection over union against active feedback. ≥75% overlap flagged as near-duplicate.</p>
+      </div>
+      <div class="card">
+        <h4 style="color: #dc2626; margin-bottom: 6px;">Phase 4: Domain Relevance & Policy Blocklist</h4>
+        <p style="color: #4b5563; font-size: 0.95rem;">Screens text for library context keywords while blocking prohibited terms.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showToast(msg) {
+      const container = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.innerText = msg;
+      container.appendChild(t);
+      setTimeout(() => t.remove(), 3500);
+    }
+
+    function showView(viewId) {
+      ['home', 'submit', 'feedback', 'dashboard', 'moderation', 'books', 'pipeline'].forEach(v => {
+        document.getElementById(`view-${v}`).style.display = v === viewId ? 'block' : 'none';
+      });
+      if (viewId === 'feedback') loadFeedback();
+      if (viewId === 'dashboard') loadDashboard();
+      if (viewId === 'moderation') loadModeration();
+      if (viewId === 'books') loadBooks();
+    }
+
+    async function handleCommentSubmit(e) {
+      e.preventDefault();
+      const payload = {
+        title: document.getElementById('fbTitle').value,
+        category: document.getElementById('fbCategory').value,
+        comment_text: document.getElementById('fbText').value
+      };
+
+      try {
+        const res = await fetch('/api/v1/comments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const json = await res.json();
+        const data = json.data;
+
+        const resBox = document.getElementById('submitResult');
+        resBox.style.display = 'block';
+        resBox.innerHTML = `
+          <h4>Pipeline Analysis Complete:</h4>
+          <p><strong>Status:</strong> <span class="badge badge-${data.status}">${data.status}</span></p>
+          <p><strong>Assigned Category:</strong> ${data.category}</p>
+          ${data.moderation_reason ? `<p style="color:#b91c1c; font-weight:600;">Flag Reason: ${data.moderation_reason}</p>` : ''}
+        `;
+
+        showToast('Feedback successfully processed by pipeline!');
+        document.getElementById('fbTitle').value = '';
+        document.getElementById('fbText').value = '';
+      } catch (err) {
+        showToast('Submission error.');
+      }
+    }
+
+    async function loadFeedback() {
+      const res = await fetch('/api/v1/comments');
+      const json = await res.json();
+      const container = document.getElementById('feedbackList');
+      if (!json.data.items.length) {
+        container.innerHTML = '<div class="card">No feedback recorded.</div>';
+        return;
+      }
+      container.innerHTML = json.data.items.map(c => `
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h3 style="margin:0;">${c.title}</h3>
+            <span class="badge badge-${c.status}">${c.status}</span>
+          </div>
+          <p style="color:#4b5563; margin-bottom:12px;">${c.comment_text}</p>
+          <div style="font-size:0.8rem; color:#6b7280;">Category: <strong>${c.category}</strong> | Date: ${new Date(c.created_at).toLocaleDateString()}</div>
+        </div>
+      `).join('');
+    }
+
+    async function loadDashboard() {
+      const res = await fetch('/api/v1/dashboard/summary');
+      const json = await res.json();
+      const d = json.data;
+      document.getElementById('dashboardKpis').innerHTML = `
+        <div class="card"><div style="color:#6b7280; font-size:0.85rem;">Total Feedback</div><div style="font-size:1.8rem; font-weight:800;">${d.total_comments}</div></div>
+        <div class="card"><div style="color:#047857; font-size:0.85rem;">Approved</div><div style="font-size:1.8rem; font-weight:800; color:#047857;">${d.approved}</div></div>
+        <div class="card"><div style="color:#b45309; font-size:0.85rem;">Pending Review</div><div style="font-size:1.8rem; font-weight:800; color:#b45309;">${d.pending_review}</div></div>
+        <div class="card"><div style="color:#1d4ed8; font-size:0.85rem;">Duplicates Flagged</div><div style="font-size:1.8rem; font-weight:800; color:#1d4ed8;">${d.duplicate + d.near_duplicate}</div></div>
+        <div class="card"><div style="color:#b91c1c; font-size:0.85rem;">Policy / Irrelevant Flags</div><div style="font-size:1.8rem; font-weight:800; color:#b91c1c;">${d.irrelevant + d.inappropriate}</div></div>
+      `;
+
+      const insRes = await fetch('/api/v1/dashboard/insights');
+      const insJson = await insRes.json();
+      document.getElementById('insightsList').innerHTML = insJson.data.top_feedback_categories.map(c => `
+        <li style="margin-bottom:6px;"><strong>${c.label}</strong>: ${c.count} high-volume student submissions</li>
+      `).join('');
+    }
+
+    async function loadModeration() {
+      const res = await fetch('/api/v1/moderation/queue');
+      const json = await res.json();
+      const container = document.getElementById('moderationList');
+      if (!json.data.items.length) {
+        container.innerHTML = '<div class="card">Queue is clear! All submissions moderated.</div>';
+        return;
+      }
+      container.innerHTML = json.data.items.map(it => `
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h4>#${it.id} ${it.title}</h4>
+            <span class="badge badge-${it.status}">${it.status}</span>
+          </div>
+          <p style="color:#4b5563; margin-bottom:12px;">${it.comment_text}</p>
+          ${it.moderation_reason ? `<p style="color:#b91c1c; font-size:0.85rem; font-weight:600;">Flag: ${it.moderation_reason}</p>` : ''}
+          <div style="display:flex; gap:10px; margin-top:12px;">
+            <button class="btn-primary" onclick="approveComment(${it.id})">Approve Comment</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function approveComment(id) {
+      await fetch(`/api/v1/moderation/${id}/approve`, { method: 'POST' });
+      showToast(`Comment #${id} Approved!`);
+      loadModeration();
+    }
+
+    async function loadBooks() {
+      const res = await fetch('/api/v1/books');
+      const json = await res.json();
+      document.getElementById('booksGrid').innerHTML = json.data.items.map(b => `
+        <div class="card">
+          <span style="font-size:0.75rem; background:#f3f4f6; padding:2px 6px; border-radius:4px;">${b.genre}</span>
+          <h3 style="margin:8px 0 4px;">${b.title}</h3>
+          <p style="color:#6b7280; font-size:0.85rem; margin-bottom:8px;">by ${b.author}</p>
+          <p style="color:#4b5563; font-size:0.9rem;">${b.description}</p>
+          <div style="margin-top:12px; font-weight:700; color:#f59e0b;">★ ${b.average_rating || '5.0'} (${b.review_count || 1} reviews)</div>
+        </div>
+      `).join('');
+    }
+
+    function exportCsv() {
+      window.location.href = '/api/v1/reports/export.csv';
+    }
+  </script>
+</body>
+</html>
